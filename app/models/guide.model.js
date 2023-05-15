@@ -35,4 +35,4 @@ const Guide = new mongoose.Schema({
 });
 
 
-module.exports = Guide;
+module.exports = mongoose.model("Guide", Guide);

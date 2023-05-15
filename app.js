@@ -17,11 +17,14 @@ const catguideRoutes = require('./app/routes/catguide.routes')
 
 
 
-var corsOptions = {
-  origin: "http://localhost:8081"
-};
 
-app.use(cors(corsOptions));
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+  next();
+});
+
 
 // parse requests of content-type - application/json
 app.use(express.json());
@@ -56,14 +59,14 @@ db.mongoose
   
   
 //routes
-app.get("api/guides", guideRoutes);
-app.get("api/recherche", rechercheRoutes);
-app.get("api/test", userRoutes);
-app.get("api/jeu", jeuRoutes);
-app.get("api/catjeu", catjeuRoutes);
-app.get("api/plateforme",plateformeRoutes);  
-app.get("api/catguides", catguideRoutes);
-//app.get("api/auth", null);
+app.use("/api/guides", guideRoutes);
+app.use("/api/recherche", rechercheRoutes);
+app.use("/api/test", userRoutes);
+app.use("/api/jeu", jeuRoutes);
+app.use("/api/catjeu", catjeuRoutes);
+app.use("/api/plateforme",plateformeRoutes);  
+app.use("/api/catguides", catguideRoutes);
+//app.use("api/auth", null);
 //require('./app/routes/auth.routes')(app);
 //require('./app/routes/user.routes')(app);
 
