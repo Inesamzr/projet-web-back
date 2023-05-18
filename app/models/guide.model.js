@@ -9,7 +9,7 @@ const Guide = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref:"Catguide",
     required: true
-  }],
+  }], 
   game : {
     type: mongoose.Schema.Types.ObjectId,
     ref:"Jeu",

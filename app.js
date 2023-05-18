@@ -13,6 +13,7 @@ const jeuRoutes = require('./app/routes/jeu.routes')
 const catjeuRoutes = require('./app/routes/catjeu.routes')
 const plateformeRoutes = require('./app/routes/plateforme.routes')
 const catguideRoutes = require('./app/routes/catguide.routes')
+const authRoutes = require('./app/routes/auth.routes')
 
 
 
@@ -66,7 +67,7 @@ app.use("/api/jeu", jeuRoutes);
 app.use("/api/catjeu", catjeuRoutes);
 app.use("/api/plateforme",plateformeRoutes);  
 app.use("/api/catguides", catguideRoutes);
-//app.use("api/auth", null);
+app.use("/api/auth", authRoutes);
 //require('./app/routes/auth.routes')(app);
 //require('./app/routes/user.routes')(app);
 

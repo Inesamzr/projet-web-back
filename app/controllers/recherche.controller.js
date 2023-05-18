@@ -5,7 +5,7 @@ const searchGuides =  (req, res) => {
 
     //pagination
     const perPage = 9; //nb guides par pages (3x3)
-    const page = req.guery.page || 1; //numéro de page
+    const page = req.query.page || 1; //numéro de page
 
     const skip = (page - 1) * perPage;
     
