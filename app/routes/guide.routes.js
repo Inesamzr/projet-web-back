@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const guideController = require('../controllers/guide.controller');
-//const { verifyToken } = require('../middlewares/authJwt')
+const { verifyToken } = require('../middlewares/authJwt')
 
 //récupération de tous les guides existants
 router.get('/',guideController.getAllGuides);
@@ -13,8 +13,8 @@ router.get('/:plateforme', guideController.getGuidesByPlateforme);
 router.get('/:id', guideController.getGuideById);
 
 //création d'un guide 
-//router.post('/', verifyToken, guideController.createGuide);
-router.post('/', guideController.createGuide);
+router.post('/', verifyToken, guideController.createGuide);
+//router.post('/', guideController.createGuide);
 
 //mise à jour d'un guide
 router.put('/:id', guideController.updateGuide);

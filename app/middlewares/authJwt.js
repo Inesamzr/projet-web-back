@@ -4,13 +4,15 @@ const db = require("../models");
 const User = db.user;
 const Role = db.role;
 
-verifyToken = (req, res, next) => {
-  let token = req.session.token;
 
+
+verifyToken = (req, res, next) => {
+  const token = req.headers.authorization;
+  
   if (!token) {
     return res.status(403).send({ message: "No token provided!" });
   }
-
+  
   jwt.verify(token, config.secret, (err, decoded) => {
     if (err) {
       return res.status(401).send({ message: "Unauthorized!" });
@@ -19,6 +21,8 @@ verifyToken = (req, res, next) => {
     next();
   });
 };
+
+
 
 isAdmin = (req, res, next) => {
   User.findById(req.userId).exec((err, user) => {

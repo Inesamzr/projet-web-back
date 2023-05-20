@@ -1,3 +1,3 @@
 module.exports = {
-    secret: "Alesio-secret"
-  };
+  secret: "Alesio-secret"
+};

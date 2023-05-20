@@ -64,15 +64,34 @@ exports.createGuide = (req, res) => {
     const { title, category, game, objective, content } = req.body;
     const author = req.userId;
 
-    //nouvelle instance de guide
-    const newGuide = new Guide({
-        title,
-        category,
-        game,
-        objective,
-        content,
-        author
-    });
+    //middleware de vérification de token
+    const token = req.headers.authorization;
+    if (!token) {
+        return res.status(403).json({ message: 'No token provided!' });
+    }
+
+    jwt.verify(token, config.secret, (err, decoded) => {
+        if (err) {
+            return res.status(401).json({ message: 'Unauthorized!' });
+        }
+        // Récupérer l'ID de l'utilisateur à partir du token décodé
+        const userId = decoded.id;
+
+        // Comparer l'ID de l'utilisateur du token avec l'ID de l'auteur du guide
+        if (userId !== author) {
+            return res.status(401).json({ message: 'Unauthorized!' });
+        }
+        //nouvelle instance de guide
+        const newGuide = new Guide({
+            title,
+            category,
+            game,
+            objective,
+            content,
+            author
+        });
+    
+
 
     //on enregistre ce guide dans le bd
     newGuide.save()
@@ -87,7 +106,8 @@ exports.createGuide = (req, res) => {
         .catch((err) => {
             res.status(500).json({ error: 'Erreur lors de la création du guide' });
         });
-};
+    });
+},
 
 
 //mise à jour d'un guide
