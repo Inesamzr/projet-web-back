@@ -7,7 +7,7 @@ const { verifyToken } = require('../middlewares/authJwt')
 router.get('/',guideController.getAllGuides);
 
 //afficher les guide par plateforme
-router.get('/:plateforme', guideController.getGuidesByPlateforme);
+router.get('/plateforme/:plateforme', guideController.getGuidesByPlateforme);
 
 //affichage d'un guide spécifique
 router.get('/:id', guideController.getGuideById);
