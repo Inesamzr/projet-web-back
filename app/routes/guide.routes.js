@@ -23,4 +23,4 @@ router.put('/:id', guideController.updateGuide);
 router.delete('/:id', guideController.deleteGuide);
 
 
-module.exports = router;
+module.exports = router; 

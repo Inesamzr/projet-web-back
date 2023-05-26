@@ -14,21 +14,33 @@ exports.getAllGuides = (req, res) => {
     });
 };
 
-//afficher les guide par plateforme
-exports.getGuidesByPlateforme = (req,res) => {
+exports.getGuidesByPlateforme = (req, res) => {
     const plateforme = req.params.plateforme;
-
-    Guide.find({'game.platforms': plateforme})
-    .populate('category')
-    .populate('game')
-    .populate('author')
-    .then((guides) => {
-        return res.status(200).json({guides});
-    })
-    .catch((err) => {
-        return res.status(500).json({error : 'Erreur lors de la recherche des guides par plateforme'});
-    });
-};
+    console.log(plateforme);
+  
+    Guide.find()
+      .populate('category')
+      .populate({
+        path: 'game',
+        populate: {
+          path: 'platforms',
+          model: 'Plateforme',
+        },
+      })
+      .populate('author')
+      .then((guides) => {
+        const filteredGuides = guides.filter((guide) => {
+          const platformNames = guide.game.platforms.map((platform) => platform.name);
+          return platformNames.includes(plateforme);
+        });
+        res.json(filteredGuides);
+      })
+      .catch((err) => {
+        console.log(err);
+        return res.status(500).json({ error: 'Erreur lors de la recherche des guides par plateforme' });
+      });
+  };
+  
 
 //affichage d'un guide spécifique 
 exports.getGuideById = (req, res) => {
