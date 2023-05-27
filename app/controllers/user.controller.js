@@ -6,8 +6,16 @@ exports.allAccess = (req, res) => {
     res.status(200).send("Public Content.");
   };
   
+  
   exports.userBoard = (req, res) => {
-    res.status(200).send("User Content.");
+    User.find({_id: req.user.id})
+    .then(user => {
+      res.status(200).send(user);
+    }) 
+    .catch(err => {
+      console.log(err)
+    })
+    
   };
   
   exports.adminBoard = (req, res) => {

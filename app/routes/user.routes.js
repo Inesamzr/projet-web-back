@@ -4,7 +4,7 @@ const router = express.Router();
 const controller = require("../controllers/user.controller");
 
 // Importer le contrôleur pour les fonctionnalités des favoris
-//const favoritesController = requir(AJOUTER UN E)("../controllers/favorites.controller");
+//const favoritesController = require("../controllers/favorites.controller");
 
 
 

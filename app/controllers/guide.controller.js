@@ -5,7 +5,15 @@ const User = require('../models/user.model');
 
 //récuparation de tous les guides existants
 exports.getAllGuides = (req, res) => {
-    Guide.find().populate(["category", "game","author"])
+    Guide.find()
+    .populate(["category","author"])
+    .populate({
+        path: 'game',
+        populate: {
+          path: 'platforms',
+          model: 'Plateforme',
+        },
+      })
     .then((guides) => {
         return res.status(200).json(guides);
     })

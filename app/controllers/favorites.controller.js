@@ -1,5 +1,5 @@
-const User = require('../models/User');
-const Guide = require('../models/Guide');
+const User = require('../models/user.model');
+const Guide = require('../models/guide.model');
 
 // Ajouter un guide aux favoris d'un utilisateur
 exports.addFavoriteGuide = async (req, res) => {

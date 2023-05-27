@@ -14,6 +14,7 @@ const catjeuRoutes = require('./app/routes/catjeu.routes')
 const plateformeRoutes = require('./app/routes/plateforme.routes')
 const catguideRoutes = require('./app/routes/catguide.routes')
 const authRoutes = require('./app/routes/auth.routes')
+const favoritesRoutes = require('./app/routes/favorites.routes')
 
 
 
@@ -68,6 +69,7 @@ app.use("/api/catjeu", catjeuRoutes);
 app.use("/api/plateforme",plateformeRoutes);  
 app.use("/api/catguides", catguideRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/favorites",favoritesRoutes);
 //require('./app/routes/auth.routes')(app);
 //require('./app/routes/user.routes')(app);
 

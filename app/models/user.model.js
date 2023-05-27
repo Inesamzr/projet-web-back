@@ -12,10 +12,10 @@ const User = mongoose.model(
         ref: "Role"
       }
     ],
-    //favoriteGuides: [{
-      //type: mongoose.Schema.Types.ObjectId,
-      //ref: "Guide"
-    //}]
+    favoriteGuides: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Guide"
+    }]
   })
 );
 
