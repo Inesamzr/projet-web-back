@@ -26,7 +26,7 @@ verifyToken = (req, res, next) => {
 
 
 
-isAdmin = (req, res, next) => {
+/*isAdmin = (req, res, next) => {
   User.findById(req.userId).exec((err, user) => {
     if (err) {
       res.status(500).send({ message: err });
@@ -55,7 +55,37 @@ isAdmin = (req, res, next) => {
       }
     );
   });
+};*/ 
+
+isAdmin = (req, res, next) => {
+  User.findById(req.userInfo)
+    .exec()
+    .then(user => {
+      if (!user) {
+        return res.status(500).send({ message: "User not found." });
+      }
+
+      Role.find({ _id: { $in: user.roles } })
+        .exec()
+        .then(roles => {
+          for (let i = 0; i < roles.length; i++) {
+            if (roles[i].name === "admin") {
+              next();
+              return;
+            }
+          }
+
+          res.status(403).send({ message: "Require Admin Role!" });
+        })
+        .catch(error => {
+          res.status(500).send({ message: error.message });
+        });
+    })
+    .catch(error => {
+      res.status(500).send({ message: error.message });
+    });
 };
+
 
 isModerator = (req, res, next) => {
   User.findById(req.userId).exec((err, user) => {

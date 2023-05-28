@@ -64,3 +64,25 @@ exports.removeFavoriteGuide = async (req, res) => {
     res.status(500).json({ message: 'Erreur lors de la suppression du guide des favoris' });
   }
 };
+
+// Obtenir le statut de favori d'un guide pour un utilisateur
+exports.getGuideFavoriteStatus = async (req, res) => {
+    try {
+      const { guideId } = req.params;
+      const userId = req.user.id;
+  
+      // Vérifier si l'utilisateur existe
+      const user = await User.findById(userId);
+      if (!user) {
+        return res.status(404).json({ message: 'Utilisateur non trouvé' });
+      }
+  
+      // Vérifier si le guide est présent dans les favoris de l'utilisateur
+      const isGuideInFavorites = user.favoriteGuides.includes(guideId);
+      console.log(favoriteGuides)
+      res.status(200).json({ isFavorite: isGuideInFavorites });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Erreur lors de la récupération du statut de favori du guide' });
+    }
+  };

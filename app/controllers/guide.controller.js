@@ -113,7 +113,7 @@ exports.createGuide = (req, res) => {
 //mise à jour d'un guide
 exports.updateGuide = (req, res) => {
     //on récupère l'id du guide à mettre à jour
-    const guideId = req.params.guideId;
+    const guideId = req.params.id;
 
     //on récupère les données de mise à jour 
     const { title, category, game, objective, content, author } = req.body;
@@ -151,7 +151,7 @@ exports.updateGuide = (req, res) => {
 exports.deleteGuide = (req, res) => {
 
     //on récupère l'id du guide à supprimer
-    const guideId = req.params.guideId;
+    const guideId = req.params.id;
 
     //on supprime le guide dans la base de données 
     Guide.findByIdAndDelete(guideId)

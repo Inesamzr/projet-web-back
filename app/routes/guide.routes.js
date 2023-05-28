@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const guideController = require('../controllers/guide.controller');
-const { verifyToken } = require('../middlewares/authJwt')
+const { verifyToken,isAdmin } = require('../middlewares/authJwt')
 
 //récupération de tous les guides existants
 router.get('/',guideController.getAllGuides);
@@ -20,7 +20,7 @@ router.post('/', verifyToken, guideController.createGuide);
 router.put('/:id', guideController.updateGuide);
 
 //suppréssion d'un guide
-router.delete('/:id', guideController.deleteGuide);
+router.delete('/:id',guideController.deleteGuide);
 
 
 module.exports = router; 
